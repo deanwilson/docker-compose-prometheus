@@ -1,0 +1,35 @@
+version: "3"
+
+networks:
+  public: {}
+
+volumes:
+  grafana_lib: {}
+  prometheus_data: {}
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    ports:
+      - 9090:9090
+    networks:
+      - public
+    volumes:
+      - prometheus_data:/prometheus
+      - ${PWD}/prometheus-server/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ${PWD}/prometheus-server/config/targets/prometheus.json:/etc/prometheus/targets/prometheus.json
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  grafana:
+    image: grafana/grafana:4.6.3
+    ports:
+      - "3000:3000"
+    networks:
+      - public
+    volumes:
+      - grafana_lib:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+
