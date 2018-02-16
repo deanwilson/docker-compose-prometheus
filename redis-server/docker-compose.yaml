@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  redis-server:
+    image: library/redis:4.0.8
+    ports:
+      - 6379:6379
+    networks:
+      - public
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v0.15.0
+    ports:
+      - 9121:9121
+    networks:
+      - public
+    command:
+      - '--redis.addr=redis://redis-server:6379'
+
+  prometheus:
+    volumes:
+      - ${PWD}/redis-server/redis.json:/etc/prometheus/targets/redis.json
