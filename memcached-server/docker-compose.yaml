@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  memcached-server:
+    image: library/memcached:1.5
+    ports:
+      - 11211:11211
+    networks:
+      - public
+
+  memcached-exporter:
+    image: quay.io/prometheus/memcached-exporter:v0.4.1
+    ports:
+      - 9150:9150
+    networks:
+      - public
+    command:
+      - '--memcached.address=memcached-server:11211'
+
+  prometheus:
+    volumes:
+      - ${PWD}/memcached-server/memcached.json:/etc/prometheus/targets/memcached.json
+
