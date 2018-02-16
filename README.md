@@ -83,18 +83,8 @@ dashboards. You can then view the
 
 Congratulations! You now have a prometheus and grafana test instance and you can
 experiment with making your own scrape backed graphs. You'll soon want to expand
-into data from other services, and an ideal place to start is with Redis.
-
-### Adding Redis
-
-To add Redis and the Redis exporter to our experiments
-
-    docker-compose -f prometheus-server/docker-compose.yaml -f redis-server/docker-compose.yaml up -d
-
-You can view the newly added Redis exporter, and its status, on the
-[Prometheus Targets](http://127.0.0.1:9090/targets) page.
-
-TODO add more docs here.
+into data from other services, and an ideal place to start is with
+[Redis](./redis-server/README.md).
 
 ### Networking
 
