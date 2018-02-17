@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  postgresql-server:
+    image: library/postgres:9.6
+    ports:
+      - 5432:5432
+    networks:
+      - public
+    environment:
+      - POSTGRES_PASSWORD=secretpassword
+
+  postgresql-exporter:
+    image: wrouesnel/postgres_exporter:v0.4.1
+    ports:
+      - 9187:9187
+    networks:
+      - public
+    environment:
+      # very insecure client connection
+      - DATA_SOURCE_NAME=postgresql://postgres:secretpassword@postgresql-server:5432/?sslmode=disable
+
+  prometheus:
+    volumes:
+      - ${PWD}/postgresql-server/postgresql-server.json:/etc/prometheus/targets/postgresql-server.json
