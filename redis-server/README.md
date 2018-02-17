@@ -57,3 +57,12 @@ click over to the
 and view its details.
 
 ![Redis dashboard](/redis-dashboard.png?raw=true "Sample redis dashboard")
+
+### Access the redis container
+
+The redis container is assigned its default port on the host loopback
+interface so you can use tools like `redis-cli` to connect directly to it.
+This allows you to execute commands you can then view on the dashboards or use
+load testing tools to generate additional traffic.
+
+    $ redis-cli ping
