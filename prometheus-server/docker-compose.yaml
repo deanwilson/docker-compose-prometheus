@@ -18,6 +18,7 @@ services:
       - prometheus_data:/prometheus
       - ${PWD}/prometheus-server/config/prometheus.yml:/etc/prometheus/prometheus.yml
       - ${PWD}/prometheus-server/config/targets/prometheus.json:/etc/prometheus/targets/prometheus.json
+      - ${PWD}/prometheus-server/config/targets/grafana.json:/etc/prometheus/targets/grafana.json
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
