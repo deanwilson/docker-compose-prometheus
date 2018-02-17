@@ -1,6 +1,15 @@
 # docker-compose-prometheus
 
-A set of Docker Compose configs to run a local Prometheus test environment.
+A set of Docker Compose configs to run a local Prometheus test environment
+
+### Table of contents
+
+ * [Introduction](/README.md#introduction)
+ * [Getting started](/README.md#getting-started)
+   - [Existing services](/README.md#existing-services)
+ * [Architecture and layout](/README.md#architecture-and-layout)
+   - [Networking](/README.md#networking)
+ * [Extending](/README.md#extending)
 
 ## Introduction
 
@@ -86,6 +95,18 @@ experiment with making your own scrape backed graphs. You'll soon want to expand
 into data from other services, and an ideal place to start is with
 [Redis](./redis-server/README.md).
 
+### Existing Services
+
+This repo currently contains example configurations for the following
+services and their respective exporters:
+
+ * [Memcached](/memcached-server)
+ * [Node exporter](/node-exporter) - just an exporter running against your local
+   host
+ * [PostgreSQL](/postgresql-server)
+ * [Prometheus and Grafana](/prometheus-server)
+ * [Redis Server](/redis-server)
+
 ### Networking
 
 All the containers are created inside a single docker network and reference each
@@ -93,3 +114,48 @@ other by the magic of their service names. They can also be reached from the
 host on `127.0.0.1`. This allows easier access to the prometheus and grafana
 dashboards and means you can easily add sample data to the graphs by running
 command such as `redis-cli` in a loop or pointing a load tester at them.
+
+## Architecture and layout
+
+One of the key goals in this experiment is to keep it as modular as possible
+and allow you to create container networks of whichever combination you need.
+Does your application use PostgreSQL and redis? Add a new `docker-
+compose.yaml` for your application itself and just include `redis-server/docker-
+compose.yaml` and `postgresql-server/docker-compose.yaml` on the
+command line to create those backing services and collect metrics on them all.
+
+To implement this we have a subdirectory for each different thing we
+want to collect metrics for. This contains the prometheus target
+configuration file, mostly in `${subdirectory_name}.json` and a `docker-
+compose.yaml` file that defines how to run the service inside a
+container. Critically, the compose file contains
+an additional `prometheus` service definition.
+
+```
+  prometheus:
+    volumes:
+      - ${PWD}/redis-server/redis.json:/etc/prometheus/targets/redis.json
+```
+
+Docker compose has a wonderful feature that ensures additional values for a
+service, even one defined in a separate docker-compose file, are
+merged to create a configuration that contains all encountered keys. In
+the case of this repo it means we can define the basic prometheus checks
+in the base `docker-compose.yaml` file and add the additional checks as we
+include the services they target.
+
+## Extending
+
+Adding a new data source or your own application should be a simple process.
+
+ * create a new subdirectory
+ * add a `docker-compose.yaml` file that can run your container
+ * ensure the `prometheus:` volume line points to your own service
+ * add the prometheus target config in the service specific `json` file
+ * run `docker-compose up` with all the services you want specified using
+   multiple `-f $foo/docker-compose.yaml` arguments
+ * add a README detailing your work
+
+### Author ###
+
+[Dean Wilson](http://www.unixdaemon.net)
