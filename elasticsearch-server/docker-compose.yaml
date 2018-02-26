@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  elastic-server:
+    image: elasticsearch:alpine
+    networks:
+      - public
+
+  elastic-exporter:
+    image: justwatch/elasticsearch_exporter:1.0.2
+    ports:
+      - 9192:9108
+    networks:
+      - public
+    command: -es.uri=http://elastic-server:9200
+
+  prometheus:
+    volumes:
+      - ${PWD}/elasticsearch-server/elastic.json:/etc/prometheus/targets/elastic.json

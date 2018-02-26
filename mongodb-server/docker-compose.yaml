@@ -9,7 +9,7 @@ services:
   mongo-exporter:
     image: eses/mongodb_exporter
     ports:
-      - 9191:9104
+      - 9193:9104
     networks:
       - public
     command: -mongodb.uri mongodb://mongo-server:27017

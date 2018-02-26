@@ -11,6 +11,8 @@ services:
 
   rabbit-exporter:
     image: kbudde/rabbitmq-exporter
+    environment:
+      RABBIT_URL: http://rabbit-server:15672
     ports:
       - 9191:9090
     networks:
@@ -18,4 +20,4 @@ services:
 
   prometheus:
     volumes:
-      - ${PWD}/rabbit-server/rabbitmq.json:/etc/prometheus/targets/rabbitmq.json
+      - ${PWD}/rabbitmq-server/rabbitmq.json:/etc/prometheus/targets/rabbitmq.json
