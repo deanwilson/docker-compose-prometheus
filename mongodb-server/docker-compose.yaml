@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  mongo-server:
+    image: library/mongo #We are going with latest, feel free to change is needed
+    networks:
+      - public
+
+  mongo-exporter:
+    image: eses/mongodb_exporter
+    ports:
+      - 9191:9104
+    networks:
+      - public
+    command: -mongodb.uri mongodb://mongo-server:27017
+
+  prometheus:
+    volumes:
+      - ${PWD}/mongodb-server/mongo.json:/etc/prometheus/targets/mongo.json
