@@ -1,0 +1,8 @@
+[
+  {
+    "targets": [ "rabbit-exporter:9090" ],
+    "labels": {
+      "job": "rabbit_exporter"
+    }
+  }
+]
