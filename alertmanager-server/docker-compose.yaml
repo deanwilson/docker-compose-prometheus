@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  alert-manager:
+    image: prom/alertmanager:v0.14.0
+    ports:
+      - 9093:9093
+    networks:
+      - public
+
+
+  config-concat:
+    volumes:
+      - ${PWD}/alertmanager-server/config/prometheus-config.yml:/fragments/alertmanager-server.yml
