@@ -6,6 +6,10 @@ networks:
 volumes:
   grafana_lib: {}
   prometheus_data: {}
+  prometheus_config:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
 
 services:
   prometheus:
@@ -16,11 +20,11 @@ services:
       - public
     volumes:
       - prometheus_data:/prometheus
-      - ${PWD}/prometheus-server/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_config:/fragments/
       - ${PWD}/prometheus-server/config/targets/prometheus.json:/etc/prometheus/targets/prometheus.json
       - ${PWD}/prometheus-server/config/targets/grafana.json:/etc/prometheus/targets/grafana.json
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--config.file=/fragments/complete/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
 
   grafana:
@@ -34,3 +38,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=secret
 
+  config-concat:
+    image: deanwilson/promconf-concat:0.1.0
+    volumes:
+      - prometheus_config:/fragments/
+      - ${PWD}/prometheus-server/config/base_prometheus.yml:/base_prometheus.yml
