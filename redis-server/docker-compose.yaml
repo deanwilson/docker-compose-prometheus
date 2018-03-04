@@ -20,5 +20,5 @@ services:
   prometheus:
     volumes:
       - ${PWD}/redis-server/redis.json:/etc/prometheus/targets/redis.json
-      - ${PWD}/redis-server/redis.rules:/etc/prometheus/targets/redis.rules
+      - ${PWD}/redis-server/redis.rules:/etc/prometheus/redis.rules
 
