@@ -1,0 +1,8 @@
+[
+  {
+    "targets": [ "alert-manager:9093" ],
+    "labels": {
+      "job": "alertmanager"
+    }
+  }
+]

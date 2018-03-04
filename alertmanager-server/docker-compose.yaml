@@ -13,3 +13,8 @@ services:
   config-concat:
     volumes:
       - ${PWD}/alertmanager-server/config/prometheus-config.yml:/fragments/alertmanager-server.yml
+
+
+  prometheus:
+    volumes:
+      - ${PWD}/alertmanager-server/alertmanager.json:/etc/prometheus/targets/alertmanager.json
