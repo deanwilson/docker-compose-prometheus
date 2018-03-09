@@ -8,6 +8,8 @@ services:
       - 9093:9093
     networks:
       - public
+    command:
+      - '--log.level=debug'
 
 
   config-concat:
