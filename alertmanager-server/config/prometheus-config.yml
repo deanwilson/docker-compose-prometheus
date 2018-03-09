@@ -1,0 +1,9 @@
+
+rule_files:
+  - "/etc/prometheus/*.rules"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: ['alert-manager:9093']
+

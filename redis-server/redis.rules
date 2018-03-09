@@ -1,0 +1,11 @@
+groups:
+- name: redis-available
+  rules:
+  - alert: RedisDown
+    expr: redis_up == 0
+    for: 1m
+    labels:
+      severity: "high"
+    annotations:
+      summary: Redis Availability alert.
+      description: "Checks if the redis exporter shows the redis server as available"
