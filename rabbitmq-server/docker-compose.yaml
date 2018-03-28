@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  rabbit-server:
+    image: library/rabbitmq:3.7.3-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - public
+
+  rabbit-exporter:
+    image: kbudde/rabbitmq-exporter
+    environment:
+      RABBIT_URL: http://rabbit-server:15672
+    ports:
+      - 9191:9090
+    networks:
+      - public
+
+  prometheus:
+    volumes:
+      - ${PWD}/rabbitmq-server/rabbitmq.json:/etc/prometheus/targets/rabbitmq.json
