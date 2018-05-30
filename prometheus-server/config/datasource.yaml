@@ -1,0 +1,16 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: Graphite
+    orgId: 1
+
+datasources:
+- name: Prometheus
+  type: prometheus
+  access: proxy
+  isDefault: true
+  url: http://prometheus:9090
+  # don't use this in prod
+  editable: true
