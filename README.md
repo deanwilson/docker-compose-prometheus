@@ -80,14 +80,11 @@ Once the containers have been created you can view the
 [Prometheus dashboard](http://127.0.0.1:9090/graph) and the
 [Grafana Dashboard](http://127.0.0.1:3000/) (login with admin / secret).
 
-We now need to configure Grafana to use Prometheus as its data source. Login
-to the dashboard, click the icon on the top left and click "Data sources". You
-can then point it to your Prometheus container.
-
-![Add Prometheus Data source](/add-prometheus-datasource.png?raw=true "Add Prometheus Data source")
-
-Once you've done this click on the `Dashboards` tab and import each of the
-dashboards. You can then view the
+Now Grafana 5 has been released we can move to configuring the Prometheus data
+source with a [datasource.yaml](/prometheus-server/config/datasource.yaml) file
+and remove the manual steps. You should still click through to
+the [import dashboard page](http://127.0.0.1:3000/datasources/edit/1/dashboards)
+screen and import each of those available. You can then view the
 [Prometheus graphs](http://127.0.0.1:3000/dashboard/db/prometheus-stats).
 
 Congratulations! You now have a prometheus and grafana test instance and you can
