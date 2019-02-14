@@ -23,6 +23,7 @@ services:
       - prometheus_config:/fragments/
       - ${PWD}/prometheus-server/config/targets/prometheus.json:/etc/prometheus/targets/prometheus.json
       - ${PWD}/prometheus-server/config/targets/grafana.json:/etc/prometheus/targets/grafana.json
+      - ${PWD}/prometheus-server/config/targets/pushgateway.json:/etc/prometheus/targets/pushgateway.json
     command:
       - '--config.file=/fragments/complete/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
