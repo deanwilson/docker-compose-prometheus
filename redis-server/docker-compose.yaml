@@ -2,14 +2,14 @@ version: "3"
 
 services:
   redis-server:
-    image: library/redis:4.0.8
+    image: library/redis:6.0.1
     ports:
       - 6379:6379
     networks:
       - public
 
   redis-exporter:
-    image: oliver006/redis_exporter:v0.15.0
+    image: oliver006/redis_exporter:v1.6.0-alpine
     ports:
       - 9121:9121
     networks:
