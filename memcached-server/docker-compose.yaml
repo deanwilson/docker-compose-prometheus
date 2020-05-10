@@ -2,14 +2,14 @@ version: "3"
 
 services:
   memcached-server:
-    image: library/memcached:1.5
+    image: library/memcached:1.6.5
     ports:
       - 11211:11211
     networks:
       - public
 
   memcached-exporter:
-    image: quay.io/prometheus/memcached-exporter:v0.4.1
+    image: prom/memcached-exporter:v0.6.0
     ports:
       - 9150:9150
     networks:
