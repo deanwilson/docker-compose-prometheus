@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgresql-server:
-    image: library/postgres:9.6
+    image: library/postgres:12.2
     ports:
       - 5432:5432
     networks:
@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=secretpassword
 
   postgresql-exporter:
-    image: wrouesnel/postgres_exporter:v0.4.1
+    image: wrouesnel/postgres_exporter:v0.8.0
     ports:
       - 9187:9187
     networks:
