@@ -48,7 +48,7 @@ over time.
 
 You will then be presented with the "Import Dashboard" dialog box
 
-![Import dashboard](/import-redis-dashboard.png?raw=true "Import redis dashboard")
+![Import dashboard](/images/import-redis-dashboard.png?raw=true "Import redis dashboard")
 
 Select your prometheus data source, which we created in the main README earlier
 and named "Prometheus". This will import and enable the dashboard. You can now
@@ -56,7 +56,7 @@ click over to the
 [Prometheus Redis Dashboard](http://127.0.0.1:3000/dashboard/db/prometheus-redis)
 and view its details.
 
-![Redis dashboard](/redis-dashboard.png?raw=true "Sample redis dashboard")
+![Redis dashboard](/images/redis-dashboard.png?raw=true "Sample redis dashboard")
 
 ### Access the redis container
 
