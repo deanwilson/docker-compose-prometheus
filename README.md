@@ -153,6 +153,13 @@ Adding a new data source or your own application should be a simple process.
    multiple `-f $foo/docker-compose.yaml` arguments
  * add a README detailing your work
 
+## Debugging
+
+To extract the complete base prometheus config file so you can check
+its contents after it is concatenated.
+
+    docker cp prometheus-server_config-concat_1:/fragments/complete/prometheus.yml /tmp/prometheus.yml
+
 ### Author ###
 
 [Dean Wilson](http://www.unixdaemon.net)
