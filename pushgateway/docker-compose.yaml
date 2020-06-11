@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  pushgateway:
+    image: prom/pushgateway:v1.2.0
+    ports:
+      - 9091:9091
+    networks:
+      - public
+
+  prometheus:
+    volumes:
+      - ${PWD}/pushgateway/pushgateway.json:/etc/prometheus/targets/pushgateway.json
