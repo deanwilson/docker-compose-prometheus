@@ -66,3 +66,7 @@ This allows you to execute commands you can then view on the dashboards or use
 load testing tools to generate additional traffic.
 
     $ redis-cli ping
+
+By default we require password auth to successfully connect. The default password
+can be found in the [redis docker-compose file](/redis-server/docker-compose.yaml)
+in the `command` section.
