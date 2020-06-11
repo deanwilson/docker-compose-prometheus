@@ -3,6 +3,7 @@ version: "3"
 services:
   redis-server:
     image: library/redis:6.0.1
+    command: "--requirepass slightly-locked"
     ports:
       - 6379:6379
     networks:
@@ -16,6 +17,7 @@ services:
       - public
     command:
       - '--redis.addr=redis://redis-server:6379'
+      - '--redis.password=slightly-locked'
 
   prometheus:
     volumes:
